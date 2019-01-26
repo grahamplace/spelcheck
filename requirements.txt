@@ -2,11 +2,15 @@ ansimarkup==1.4.0
 better-exceptions-fork==0.2.1.post6
 Click==7.0
 colorama==0.4.1
+flake8==3.6.0
 Flask==1.0.2
 gunicorn==19.9.0
 itsdangerous==1.1.0
 Jinja2==2.10
 loguru==0.2.5
 MarkupSafe==1.1.0
+mccabe==0.6.1
+pycodestyle==2.4.0
+pyflakes==2.0.0
 Pygments==2.3.1
 Werkzeug==0.14.1
