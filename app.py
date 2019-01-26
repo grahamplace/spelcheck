@@ -5,8 +5,8 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def homepage(word):
-    render_template('index.html')
+def homepage():
+    return render_template('index.html')
 
 
 @app.route('/suggest/<word>.json')
