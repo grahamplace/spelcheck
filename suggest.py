@@ -17,12 +17,14 @@ def index_corpus(filename: str) -> dict:
     CORPUS.pop('')
 
 
-# clean a list of words by keeping only those present in the corpus at least once
+# clean a list of words by keeping only those present
+#   in the corpus at least once
 def clean_with_corpus(words: list) -> list:
     return [w for w in words if w in CORPUS]
 
 
-# For a given input word, compute the set of permutations made by deleting 1 character
+# For a given input word, compute the set of permutations
+#   made by deleting 1 character
 def compute_deletions(word: str) -> list:
     edits = []
     for i in range(len(word)):
@@ -30,7 +32,8 @@ def compute_deletions(word: str) -> list:
     return edits
 
 
-# For a given input word, compute the set of permutations made by inserting 1 character
+# For a given input word, compute the set of permutations
+#   made by inserting 1 character
 def compute_insertions(word: str) -> list:
     edits = []
     for i in range(len(word)):
@@ -39,7 +42,8 @@ def compute_insertions(word: str) -> list:
     return edits
 
 
-# For a given input word, compute the set of permutations made by substituting 1 char with 1 other char
+# For a given input word, compute the set of permutations made
+#   by substituting 1 char with 1 other char
 def compute_substitutions(word: str) -> list:
     edits = []
     for i in range(len(word)):
@@ -48,7 +52,8 @@ def compute_substitutions(word: str) -> list:
     return edits
 
 
-# For a given input word, compute the set of all possible strings with edit distance 1 from word
+# For a given input word, compute the set of all possible strings
+#   with edit distance 1 from word
 def compute_ones(word: str) -> list:
     edits = []
     edits.extend(compute_deletions(word))
@@ -58,7 +63,8 @@ def compute_ones(word: str) -> list:
     return edits
 
 
-# For a given input word, compute the set of all possible strings with edit distance 1 from word
+# For a given input word, compute the set of all possible strings
+#   with edit distance 1 from word
 def compute_twos(word: str) -> list:
     two_edits = []
     one_edits = compute_ones(word)
@@ -76,7 +82,8 @@ def suggest(word: str) -> str:
     if word in CORPUS:
         return word
 
-    # Next best is an edit distance of one, picking the permutation that appears most in corpus
+    # Next best is an edit distance of one,
+    #   picking the permutation that appears most in corpus
     one_edits = clean_with_corpus(compute_ones(word))
     if one_edits:
         print(f'All options: {one_edits}\n')
@@ -90,7 +97,8 @@ def suggest(word: str) -> str:
         vals = {word: CORPUS[word] for word in two_edits}
         return sorted(vals, key=vals.get, reverse=True)[0]
 
-    # We don't suggest anything if there isn't a word in the corpus with <= 2 Levenshtein ED from word
+    # We don't suggest anything if there isn't a word in the corpus with
+    #   <= 2 Levenshtein ED from word
     return ''
 
 
