@@ -1,0 +1,6 @@
+echo "test"
+source env/bin/activate
+echo "test1"
+source bin/.env
+echo "test2"
+flask run
