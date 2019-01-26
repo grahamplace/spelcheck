@@ -3,6 +3,7 @@ better-exceptions-fork==0.2.1.post6
 Click==7.0
 colorama==0.4.1
 Flask==1.0.2
+gunicorn==19.9.0
 itsdangerous==1.1.0
 Jinja2==2.10
 loguru==0.2.5
