@@ -2,11 +2,22 @@ const submitButton = document.querySelector('#submit-button');
 const inputBox = document.querySelector('#input-box');
 const resultsLimit = 10;
 
+const itemClick = function(event) {
+  let word = event.target.innerHTML;
+  inputBox.value = word;
+  getDefinition(word);
+}
+
 const writeSuggestion = function(suggestions) {
   const suggestionList = document.querySelector('#suggestion-list')
   suggestionList.style.visibility = 'visible';
   for (i = 0; i < Math.min(resultsLimit, suggestions.length); i++) {
     suggestionList.innerHTML += '<button class="dropdown-item" type="button">' + suggestions[i] + '</button>';
+  }
+
+  var dropdownItems = document.getElementsByClassName('dropdown-item');
+  for (i = 0; i < dropdownItems.length; i++) {
+    dropdownItems[i].addEventListener('click', itemClick);
   }
 }
 
