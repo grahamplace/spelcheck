@@ -7,12 +7,16 @@
     <title></title>
   </head>
   <body>
-    <div class="input-group mb-3">
+    <div class="input-group mb-1 mt-2">
       <div class="input-group-prepend">
       </div>
       <input type="text" id="input-box" class="form-control" placeholder="Enter a word..." aria-label="Username" aria-describedby="basic-addon1">
       <button type="button" id="submit-button" class="btn btn-dark">Submit</button>
     </div>
+    <div id="suggestion-list" class="dropdown mt-0" style="visibility:hidden">
+      <button class="dropdown-item" type="button">Action</button>
+    </div>
+
     <h1 id="suggestion" class="display-1"></h1>
 
     <!-- here be dragons -->

@@ -1,3 +1,4 @@
+source bin/env
 export FLASK_APP=app.py
 source env/bin/activate
 flask run
