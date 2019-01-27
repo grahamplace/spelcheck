@@ -26,6 +26,8 @@ def list_suggest(input_word):
 
 @app.route('/define/<word>.json')
 def get_definition(word):
+    word = word.lower()
     def_url = MW_URL.format(word = word, key = MW_KEY)
     res = requests.get(def_url)
-    return jsonify(res.json()[0])
+    matches = [defn for defn in res.json() if defn['hwi']['hw'] == word]
+    return jsonify(matches)
