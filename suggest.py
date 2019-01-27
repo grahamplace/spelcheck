@@ -102,5 +102,32 @@ def suggest(word: str) -> str:
     return ''
 
 
+def suggest_list(word: str) -> list:
+    word = word.lower()
+
+    # We don't suggest anything if there isn't a word in the corpus with
+    #   <= 2 Levenshtein ED from word
+    suggestions = []
+
+    # If the word is already "correct", add to suggestions
+    if word in CORPUS:
+        suggestions.append(word)
+
+    # Next best is an edit distance of one
+    one_edits = clean_with_corpus(compute_ones(word))
+    if one_edits:
+        vals = {word: CORPUS[word] for word in one_edits}
+        suggestions.extend(sorted(vals, key=vals.get, reverse=True))
+
+    # Next best is edit distance two from original word
+    two_edits = clean_with_corpus(compute_twos(word))
+    if two_edits:
+        vals = {word: CORPUS[word] for word in two_edits}
+        suggestions.extend(sorted(vals, key=vals.get, reverse=True))
+
+    return suggestions
+
+
+
 # to run on import
 index_corpus('corpus.txt')
