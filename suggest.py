@@ -125,6 +125,8 @@ def suggest_list(word: str) -> list:
         vals = {word: CORPUS[word] for word in two_edits}
         suggestions.extend(sorted(vals, key=vals.get, reverse=True))
 
+    suggestions = list(set(suggestions))  # dedupe
+
     return [s for s in suggestions if len(s) > 1]
 
 

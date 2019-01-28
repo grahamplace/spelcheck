@@ -12,6 +12,7 @@ const itemClick = function(event) {
 const writeSuggestion = function(suggestions) {
   const suggestionList = document.querySelector('#suggestion-list')
   suggestionList.style.visibility = 'visible';
+  $("#suggestion-list").empty();
   for (i = 0; i < Math.min(resultsLimit, suggestions.length); i++) {
     suggestionList.innerHTML += '<button class="dropdown-item" id="dd-' + (i+1) + '" type="button" value="' + suggestions[i]  + '">' + suggestions[i] + '</button>';
   }
@@ -40,8 +41,9 @@ const writeDefinitions = function(definitions) {
 }
 
 const getSuggestion = function(event) {
-  if (event.keyCode >= 37 && event.keyCode <= 40)
+  if ((event.keyCode >= 37 && event.keyCode <= 40) || event.keyCode == 13)
     return;
+  $("#suggestion-list").empty();
   let inputWord = inputBox.value;
   selectedId = 0;
   document.querySelector('#suggestion-list').innerHTML = '';
