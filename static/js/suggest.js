@@ -17,7 +17,7 @@ const writeSuggestion = function(suggestions) {
   }
 
   var dropdownItems = document.getElementsByClassName('dropdown-item');
-  for (i = i; i < dropdownItems.length; i++) {
+  for (i = 0; i < dropdownItems.length; i++) {
     dropdownItems[i].addEventListener('click', itemClick);
   }
 }
@@ -30,7 +30,7 @@ const writeDefinitions = function(definitions) {
     definitionsRow.innerHTML +=
       '<div class="card col-4 mx-1 my-1">' +
        '<div class="card-body">' +
-          '<h5 class="card-title">' + definitions[i]['hwi']['hw'] + '</h5>' +
+          '<h5 class="card-title">' + definitions[i]['word'] + '</h5>' +
           '<h6 class="card-subtitle mb-2 text-muted">' + definitions[i]['fl'] + '</h6>' +
           '<p class="card-text">' + definitions[i]['shortdef']+ '</p>' +
         '</div>' +

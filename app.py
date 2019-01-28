@@ -29,5 +29,9 @@ def get_definition(word):
     word = word.lower()
     def_url = MW_URL.format(word = word, key = MW_KEY)
     res = requests.get(def_url)
-    matches = [defn for defn in res.json() if defn['hwi']['hw'] == word]
+    matches = [defn for defn in res.json() if (defn['meta']['id']).split(':')[0] == word]
+    if not matches:
+        matches = res.json() # fallback on everything
+    for m in matches:
+        m['word'] = m['meta']['id'].split(':')[0]
     return jsonify(matches)
