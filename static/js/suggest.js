@@ -5,7 +5,7 @@ let selectedId = 0;
 let resultsDisplayed = 0;
 
 const itemClick = function(event) {
-  let word = event.target.innerHTML;
+  let word = event.target.value;
   inputBox.value = word;
   getDefinition(word);
 }
@@ -48,6 +48,7 @@ const getSuggestion = function(event) {
     return;
   $("#suggestion-list").empty();
   let inputWord = inputBox.value;
+
   selectedId = 0;
   document.querySelector('#suggestion-list').innerHTML = '';
   $("#definitions").empty();
@@ -56,6 +57,8 @@ const getSuggestion = function(event) {
 
 const getDefinition = function() {
   let inputWord = inputBox.value;
+  if (!inputWord)
+    return;
   document.querySelector('#suggestion-list').innerHTML = '';
   $("#definitions").empty();
   $.get('/define/' + inputWord + '.json', success=writeDefinitions);
