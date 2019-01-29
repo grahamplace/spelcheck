@@ -2,6 +2,7 @@ const submitButton = document.querySelector('#submit-button');
 const inputBox = document.querySelector('#input-box');
 const resultsLimit = 10;
 let selectedId = 0;
+let resultsDisplayed = 0;
 
 const itemClick = function(event) {
   let word = event.target.innerHTML;
@@ -13,7 +14,8 @@ const writeSuggestion = function(suggestions) {
   const suggestionList = document.querySelector('#suggestion-list')
   suggestionList.style.visibility = 'visible';
   $("#suggestion-list").empty();
-  for (i = 0; i < Math.min(resultsLimit, suggestions.length); i++) {
+  resultsDisplayed = Math.min(resultsLimit, suggestions.length);
+  for (i = 0; i < resultsDisplayed; i++) {
     suggestionList.innerHTML += '<button class="dropdown-item" id="dd-' + (i+1) + '" type="button" value="' + suggestions[i]  + '">' + suggestions[i] + '</button>';
   }
 
@@ -69,10 +71,11 @@ $("#input-box").keydown(function (e){
     if(e.keyCode == 38){ // up arrow key
         selectedId = Math.max(0, selectedId - 1);
     } else if (e.keyCode == 40) { // down arrow key
-        selectedId = Math.min(resultsLimit, selectedId + 1);
+        selectedId = Math.min(resultsDisplayed, selectedId + 1);
     } else {
       return;
     }
+    
     $('#dd-' + selectedId).addClass('active');
 
     if (selectedId != oldId)
