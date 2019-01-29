@@ -12,8 +12,8 @@ def index_corpus(filename: str) -> dict:
     corpus.replace('\n', ' ')
     corpus = re.sub('[^a-zA-Z ]+', ' ', corpus)
     corpus = corpus.split(' ')
-    for word in corpus:
-        CORPUS[word.lower()] += 1
+    for idx, word in enumerate(corpus):
+        CORPUS[word.lower()] = idx
     CORPUS.pop('')
 
 
@@ -114,20 +114,15 @@ def suggest_list(word: str) -> list:
         suggestions.append(word)
 
     # Next best is an edit distance of one
-    one_edits = clean_with_corpus(compute_ones(word))
-    if one_edits:
-        vals = {word: CORPUS[word] for word in one_edits}
-        suggestions.extend(sorted(vals, key=vals.get, reverse=True))
+    suggestions.extend(clean_with_corpus(compute_ones(word)))
 
     # Next best is edit distance two from original word
-    two_edits = clean_with_corpus(compute_twos(word))
-    if two_edits:
-        vals = {word: CORPUS[word] for word in two_edits}
-        suggestions.extend(sorted(vals, key=vals.get, reverse=True))
+    suggestions.extend(clean_with_corpus(compute_twos(word)))
 
-    suggestions = list(set(suggestions))  # dedupe
+    # Dedupe
+    suggestions = list(set(suggestions))
 
-    return [s for s in suggestions if len(s) > 1]
+    return sorted(suggestions, key=CORPUS.get)
 
 
 
