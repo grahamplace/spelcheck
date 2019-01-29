@@ -1,6 +1,6 @@
 const submitButton = document.querySelector('#submit-button');
 const inputBox = document.querySelector('#input-box');
-const resultsLimit = 10;
+const resultsLimit = 9;
 let selectedId = 0;
 let resultsDisplayed = 0;
 
@@ -14,9 +14,10 @@ const writeSuggestion = function(suggestions) {
   const suggestionList = document.querySelector('#suggestion-list')
   suggestionList.style.visibility = 'visible';
   $("#suggestion-list").empty();
-  resultsDisplayed = Math.min(resultsLimit, suggestions.length);
-  for (i = 0; i < resultsDisplayed; i++) {
-    suggestionList.innerHTML += '<button class="dropdown-item" id="dd-' + (i+1) + '" type="button" value="' + suggestions[i]  + '">' + suggestions[i] + '</button>';
+  suggestionList.innerHTML += '<button class="dropdown-item" id="dd-1' + '" type="button" value="' + inputBox.value  + '">' + inputBox.value + '<span class="text-muted"> - Goggle Search</span></button>';
+  resultsDisplayed = Math.min(resultsLimit, suggestions.length) + 1;
+  for (i = 0; i < resultsDisplayed - 1; i++) {
+    suggestionList.innerHTML += '<button class="dropdown-item" id="dd-' + (i+2) + '" type="button" value="' + suggestions[i]  + '">' + suggestions[i] + '</button>';
   }
 
   var dropdownItems = document.getElementsByClassName('dropdown-item');
@@ -75,7 +76,7 @@ $("#input-box").keydown(function (e){
     } else {
       return;
     }
-    
+
     $('#dd-' + selectedId).addClass('active');
 
     if (selectedId != oldId)
