@@ -122,7 +122,7 @@ def suggest_list(word: str) -> list:
     # Dedupe
     suggestions = list(set(suggestions))
 
-    return sorted(suggestions, key=CORPUS.get)
+    return [word] + sorted(suggestions, key=CORPUS.get)
 
 
 
