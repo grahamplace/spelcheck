@@ -38,11 +38,13 @@ def get_definition(word):
     for defn in res.json():
         if not isinstance(defn, dict):  # no result found returns a list of strings
             return jsonify([])
+        if not defn['shortdef']:
+            continue
         elif (defn['meta']['id']).split(':')[0] == word:
             matches.append(defn)
 
     if not matches:
-        matches = res.json()  # fallback on everything
+        matches = [m for m in res.json() if m['shortdef']]  # fallback on everything with a def
 
     for m in matches:
         # add a cleaned 'word' to each defn dict
