@@ -48,7 +48,9 @@ def compute_substitutions(word: str) -> list:
     edits = []
     for i in range(len(word)):
         for letter in ALPHA:
-            edits.append(word[:i] + letter + word[i+1:])
+            new_word = word[:i] + letter + word[i+1:]
+            if new_word != word:
+                edits.append(new_word)
     return edits
 
 
@@ -71,6 +73,7 @@ def compute_twos(word: str) -> list:
     for edit in one_edits:
         two_edits.extend(compute_ones(edit))
     two_edits = list(set(two_edits))  # dedupe
+    two_edits.remove(word)
     return two_edits
 
 
@@ -108,10 +111,6 @@ def suggest_list(word: str) -> list:
     # We don't suggest anything if there isn't a word in the corpus with
     #   <= 2 Levenshtein ED from word
     suggestions = []
-
-    # If the word is already "correct", add to suggestions
-    if word in CORPUS:
-        suggestions.append(word)
 
     # Next best is an edit distance of one
     suggestions.extend(clean_with_corpus(compute_ones(word)))
