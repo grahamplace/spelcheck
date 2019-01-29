@@ -1,3 +1,7 @@
 .dropdown-item.active {
   background-color: #5186ec !important;
 }
+
+.dropdown-item.active > .text-muted {
+  color: #ebebeb !important;
+}

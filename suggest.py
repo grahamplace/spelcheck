@@ -122,6 +122,9 @@ def suggest_list(word: str) -> list:
     # Dedupe
     suggestions = list(set(suggestions))
 
+    # Remove one-letter results
+    suggestions = [s for s in suggestions if len(s) > 2]
+
     return sorted(suggestions, key=CORPUS.get)
 
 
