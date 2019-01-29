@@ -36,7 +36,7 @@ const writeDefinitions = function(definitions) {
        '<div class="card-body">' +
           '<h5 class="card-title">' + definitions[i]['word'] + '</h5>' +
           '<h6 class="card-subtitle mb-2 text-muted">' + definitions[i]['fl'] + '</h6>' +
-          '<p class="card-text">' + definitions[i]['shortdef']+ '</p>' +
+          '<p class="card-text">' + definitions[i]['definition_str']+ '</p>' +
         '</div>' +
       '</div>'
       ;
