@@ -51,10 +51,23 @@ const writeDefinitions = function(definitions) {
 }
 
 const getSuggestion = function(event) {
-  if ((event.keyCode >= 37 && event.keyCode <= 40) || event.keyCode == 13)
+  // ignore enter, shift, etc
+  if (event.keyCode >= 9 && event.keyCode <= 45)
     return;
+
+  // ignore window keys + select
+  if (event.keyCode >= 91 && event.keyCode <= 93)
+    return;
+
+  // f* keys
+  if (event.keyCode >= 112 && event.keyCode <= 145)
+    return;
+
   $("#suggestion-list").empty();
   let inputWord = inputBox.value;
+
+  if (!inputWord)
+    return;
 
   selectedId = 0;
   document.querySelector('#suggestion-list').innerHTML = '';
