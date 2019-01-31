@@ -28,18 +28,25 @@ const writeSuggestion = function(suggestions) {
 
 const writeDefinitions = function(definitions) {
   $("#suggestion-list").empty();
-  const definitionsRow = document.querySelector('#definitions')
-  definitionsRow.style.visibility = 'visible';
-  for (i = 0; i < definitions.length; i++) {
-    definitionsRow.innerHTML +=
-      '<div class="card col-4 mx-1 my-1">' +
-       '<div class="card-body">' +
-          '<h5 class="card-title">' + definitions[i]['word'] + '</h5>' +
-          '<h6 class="card-subtitle mb-2 text-muted">' + definitions[i]['fl'] + '</h6>' +
-          '<p class="card-text">' + definitions[i]['definition_str']+ '</p>' +
-        '</div>' +
-      '</div>'
-      ;
+  if (definitions.length === 0) {
+    const noResult = document.querySelector('#no-result');
+    noResult.innerHTML = 'No definition found for ' + inputBox.value + '. Please search another word.';
+    noResult.style.visibility = 'visible';
+    setTimeout(function(){ noResult.style.visibility = 'hidden';}, 5000);
+  } else {
+    const definitionsRow = document.querySelector('#definitions')
+    definitionsRow.style.visibility = 'visible';
+    for (i = 0; i < definitions.length; i++) {
+      definitionsRow.innerHTML +=
+        '<div class="card col-4 mx-1 my-1">' +
+         '<div class="card-body">' +
+            '<h5 class="card-title">' + definitions[i]['word'] + '</h5>' +
+            '<h6 class="card-subtitle mb-2 text-muted">' + definitions[i]['fl'] + '</h6>' +
+            '<p class="card-text">' + definitions[i]['definition_str']+ '</p>' +
+          '</div>' +
+        '</div>'
+        ;
+    }
   }
 }
 
