@@ -1,5 +1,8 @@
 bin/env
 .DS_Store
+bad_words.txt
+cleaned_corpus.txt
+clean_corpus.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

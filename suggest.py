@@ -108,23 +108,21 @@ def suggest(word: str) -> str:
 def suggest_list(word: str) -> list:
     word = word.lower()
 
-    # We don't suggest anything if there isn't a word in the corpus with
-    #   <= 2 Levenshtein ED from word
-    suggestions = []
+    suggestions = {}
 
     # Next best is an edit distance of one
-    suggestions.extend(clean_with_corpus(compute_ones(word)))
+    ones = clean_with_corpus(compute_ones(word))
+    for sugg in ones:
+        if len(sugg) > 2:
+            suggestions[sugg] = (1, CORPUS[sugg])
 
     # Next best is edit distance two from original word
-    suggestions.extend(clean_with_corpus(compute_twos(word)))
+    twos = clean_with_corpus(compute_twos(word))
+    for sugg in twos:
+        if not suggestions.get(sugg, False) and len(sugg) > 2:
+            suggestions[sugg] = (2, CORPUS[sugg])
 
-    # Dedupe
-    suggestions = list(set(suggestions))
-
-    # Remove one-letter results
-    suggestions = [s for s in suggestions if len(s) > 2]
-
-    return sorted(suggestions, key=CORPUS.get)
+    return sorted(suggestions, key=suggestions.get)
 
 
 
