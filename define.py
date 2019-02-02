@@ -17,7 +17,7 @@ def get_res_matches(word: str, res) -> list:
     for defn in res.json():
         # no result found returns a list of strings
         if not isinstance(defn, dict):
-            return jsonify([])
+            return []
         if not defn['shortdef']:
             continue
         elif (defn['meta']['id']).split(':')[0] == word:

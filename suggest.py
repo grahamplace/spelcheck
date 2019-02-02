@@ -97,6 +97,5 @@ def suggest_list(word: str, limit=10) -> list:
     return sorted(suggestions, key=suggestions.get)[:limit]
 
 
-
 # to run on import
 index_corpus('corpus.txt')
