@@ -77,35 +77,7 @@ def compute_twos(word: str) -> list:
     return two_edits
 
 
-# For a given input word, suggest a reasonable alternative
-def suggest(word: str) -> str:
-    word = word.lower()
-
-    # If the word is already "correct", return it
-    if word in CORPUS:
-        return word
-
-    # Next best is an edit distance of one,
-    #   picking the permutation that appears most in corpus
-    one_edits = clean_with_corpus(compute_ones(word))
-    if one_edits:
-        print(f'All options: {one_edits}\n')
-        vals = {word: CORPUS[word] for word in one_edits}
-        return sorted(vals, key=vals.get, reverse=True)[0]
-
-    # Next best is the same, but with edit distance two from original word
-    two_edits = clean_with_corpus(compute_twos(word))
-    if two_edits:
-        print(f'All options: {two_edits}\n')
-        vals = {word: CORPUS[word] for word in two_edits}
-        return sorted(vals, key=vals.get, reverse=True)[0]
-
-    # We don't suggest anything if there isn't a word in the corpus with
-    #   <= 2 Levenshtein ED from word
-    return ''
-
-
-def suggest_list(word: str) -> list:
+def suggest_list(word: str, limit=10) -> list:
     word = word.lower()
 
     suggestions = {}
@@ -122,7 +94,7 @@ def suggest_list(word: str) -> list:
         if not suggestions.get(sugg, False) and len(sugg) > 2:
             suggestions[sugg] = (2, CORPUS[sugg])
 
-    return sorted(suggestions, key=suggestions.get)
+    return sorted(suggestions, key=suggestions.get)[:limit]
 
 
 

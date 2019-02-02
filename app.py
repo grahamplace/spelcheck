@@ -1,5 +1,5 @@
-from flask import Flask, jsonify, render_template
-from suggest import suggest, suggest_list
+from flask import Flask, jsonify, render_template, request
+from suggest import suggest_list
 from define import define
 from loguru import logger
 
@@ -13,10 +13,11 @@ def homepage():
 
 @app.route('/suggest/list/<input_word>.json')
 def list_suggest(input_word):
-    suggestions = suggest_list(input_word)
+    limit = request.args.get('limit', default=10, type=int)
+    suggestions = suggest_list(input_word, limit)
     logger.info(f"{len(suggestions)} suggestions for {input_word}")
     logger.info(f"{input_word} suggestions: {suggestions}")
-    return jsonify()
+    return jsonify(suggestions)
 
 
 @app.route('/define/<word>.json')

@@ -72,7 +72,7 @@ const getSuggestion = function(event) {
   selectedId = 0;
   document.querySelector('#suggestion-list').innerHTML = '';
   $("#definitions").empty();
-  $.get('/suggest/list/' + inputWord + '.json', success=writeSuggestion);
+  $.get('/suggest/list/' + inputWord + '.json' +'?limit=' + resultsLimit, success=writeSuggestion);
 }
 
 const getDefinition = function() {
