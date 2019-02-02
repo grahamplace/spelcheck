@@ -11,18 +11,25 @@ def homepage():
     return render_template('index.html')
 
 
-@app.route('/suggest/list/<input_word>.json')
-def list_suggest(input_word):
+@app.route('/suggest/list/<input>.json')
+def list_suggest(input):
     limit = request.args.get('limit', default=10, type=int)
-    suggestions = suggest_list(input_word, limit)
-    logger.info(f"{len(suggestions)} suggestions for {input_word}")
-    logger.info(f"{input_word} suggestions: {suggestions}")
+    suggestions = suggest_list(input, limit)
+    if suggestions:
+        logger.info(f"{len(suggestions)} suggestions for {input}")
+        logger.info(f"{input} suggestions: {suggestions}")
+    else:
+        logger.debug(f"No suggestions returned for {input}")
     return jsonify(suggestions)
 
 
 @app.route('/define/<word>.json')
 def get_definition(word):
     defs = define(word)
-    logger.info(f"{len(defs)} matching definitions returned for {word}.")
-    logger.info(f"{word} definitions: {defs}")
+    if defs:
+        logger.info(f"{len(defs)} matching definitions returned for {word}.")
+        logger.info(f"{word} definitions: {defs}")
+    else:
+        logger.debug(f"No definitions found for {word}")
+
     return jsonify(defs)
