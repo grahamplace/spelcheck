@@ -11,19 +11,17 @@ def homepage():
     return render_template('index.html')
 
 
-@app.route('/suggest/word/<input_word>.json')
-def word_suggest(input_word):
-    return jsonify(suggest(input_word))
-
-
 @app.route('/suggest/list/<input_word>.json')
 def list_suggest(input_word):
-    return jsonify(suggest_list(input_word))
+    suggestions = suggest_list(input_word)
+    logger.info(f"{len(suggestions)} suggestions for {input_word}")
+    logger.info(f"{input_word} suggestions: {suggestions}")
+    return jsonify()
 
 
 @app.route('/define/<word>.json')
 def get_definition(word):
     defs = define(word)
-    logger.debug(f"{len(defs)} returned for {word}.")
-    logger.debug(f"{word} matches: {defs}")
+    logger.info(f"{len(defs)} matching definitions returned for {word}.")
+    logger.info(f"{word} definitions: {defs}")
     return jsonify(defs)
