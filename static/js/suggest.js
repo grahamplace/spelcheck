@@ -41,7 +41,7 @@ const writeDefinitions = function(definitions) {
         '<div class="card col-4 mx-1 my-1">' +
          '<div class="card-body">' +
             '<h5 class="card-title">' + definitions[i]['word'] + '</h5>' +
-            '<h6 class="card-subtitle mb-2 text-muted">' + definitions[i]['fl'] + '</h6>' +
+            '<h6 class="card-subtitle mb-2 text-muted">' + definitions[i]['part_of_speech'] + '</h6>' +
             '<p class="card-text">' + definitions[i]['definition_str']+ '</p>' +
           '</div>' +
         '</div>'
