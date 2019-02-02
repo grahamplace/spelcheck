@@ -13,7 +13,7 @@ def index_corpus(filename: str) -> dict:
     corpus = re.sub('[^a-zA-Z ]+', ' ', corpus)
     corpus = corpus.split(' ')
     for idx, word in enumerate(corpus):
-        CORPUS[word.lower()] = max(idx, CORPUS[word.lower()])
+        CORPUS[word.lower()] = min(idx, CORPUS[word.lower()])
     CORPUS.pop('')
 
 
