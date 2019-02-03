@@ -16,6 +16,7 @@ const writeSuggestion = function(suggestionRes) {
 
   // avoid overwriting if response is stale relative to text entered
   if (inputWord !== inputBox.value)
+  console.log('Skipping dropdown overwrite as response is stale');
     return;
 
   const suggestionList = document.querySelector('#suggestion-list')
