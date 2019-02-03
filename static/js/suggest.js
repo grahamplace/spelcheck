@@ -10,7 +10,14 @@ const itemClick = function(event) {
   getDefinition(word);
 }
 
-const writeSuggestion = function(suggestions) {
+const writeSuggestion = function(suggestionRes) {
+  let inputWord = suggestionRes['input'];
+  let suggestions = suggestionRes['suggestions'];
+
+  // avoid overwriting if response is stale relative to text entered
+  if (inputWord !== inputBox.value)
+    return;
+
   const suggestionList = document.querySelector('#suggestion-list')
   suggestionList.style.visibility = 'visible';
   $("#suggestion-list").empty();

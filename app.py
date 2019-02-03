@@ -20,7 +20,7 @@ def list_suggest(input):
         logger.info(f"{input} suggestions: {suggestions}")
     else:
         logger.debug(f"No suggestions returned for {input}")
-    return jsonify(suggestions)
+    return jsonify({'input': input, 'suggestions': suggestions})
 
 
 @app.route('/define/<word>.json')
