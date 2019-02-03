@@ -33,6 +33,12 @@ const writeSuggestion = function(suggestionRes) {
   }
 }
 
+const audioClick = function(event) {
+  let audioId = event.target.id;
+  let audio = document.querySelector('#audio-def-' + audioId);
+  audio.play();
+}
+
 const writeDefinitions = function(definitions) {
   $("#suggestion-list").empty();
   if (definitions.length === 0) {
@@ -44,15 +50,29 @@ const writeDefinitions = function(definitions) {
     const definitionsRow = document.querySelector('#definitions')
     definitionsRow.style.visibility = 'visible';
     for (i = 0; i < definitions.length; i++) {
+
+      let prn_btn_str = '';
+      let prn_tag_str = '';
+      if (definitions[i]['pronunciation_link']) {
+        prn_btn_str = ' | <span class="audio-button" id="' + i + '"> 🔊</span>';
+        prn_tag_str = '<audio id="audio-def-' + i + '"><source src="' + definitions[i]['pronunciation_link']  + '"type="audio/wav"></audio>';
+      }
+
       definitionsRow.innerHTML +=
         '<div class="card col-4 mx-1 my-1">' +
          '<div class="card-body">' +
             '<h5 class="card-title">' + definitions[i]['word'] + '</h5>' +
-            '<h6 class="card-subtitle mb-2 text-muted">' + definitions[i]['part_of_speech'] + '</h6>' +
+            '<h6 class="card-subtitle mb-2 text-muted">' + definitions[i]['part_of_speech'] + prn_btn_str + '</h6>' +
+            prn_tag_str +
             '<p class="card-text">' + definitions[i]['definition_str']+ '</p>' +
           '</div>' +
         '</div>'
         ;
+    }
+
+    let audioButtons = document.getElementsByClassName('audio-button');
+    for (i = 0; i < audioButtons.length; i++) {
+      audioButtons[i].addEventListener('click', audioClick);
     }
   }
 }

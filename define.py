@@ -49,6 +49,21 @@ def clean_matches(matches):
         # add part of speech
         defn['part_of_speech'] = m.get('fl', '')
 
+        # add pronunciation link, see https://dictionaryapi.com/products/json#sec-2.hwi
+        try:
+            audio = m['hwi']['prs'][0]['sound']['audio']
+            if audio.startswith('bix'):
+                subdir = 'bix'
+            elif audio.startswith('gg'):
+                subdir = 'gg'  # gg merriam webster, gg
+            elif re.match(r'^[^a-zA-Z]', audio):
+                subdir = 'number'
+            else:
+                subdir = audio[0]
+            defn['pronunciation_link'] = f'https://media.merriam-webster.com/soundc11/{subdir}/{audio}.wav'
+        except:
+            pass
+
         defs.append(defn)
 
     return defs
