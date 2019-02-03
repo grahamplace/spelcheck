@@ -1,7 +1,7 @@
 import re
 from collections import defaultdict
 
-CORPUS = defaultdict(int)
+CORPUS = {}
 ALPHA = 'abcdefghijklmnopqrstuvwxyz'
 
 
@@ -13,7 +13,10 @@ def index_corpus(filename: str) -> dict:
     corpus = re.sub('[^a-zA-Z ]+', ' ', corpus)
     corpus = corpus.split(' ')
     for idx, word in enumerate(corpus):
-        CORPUS[word.lower()] = min(idx, CORPUS[word.lower()])
+        if not CORPUS.get(word.lower(), False):
+            CORPUS[word.lower()] = idx
+        else:
+            CORPUS[word.lower()] = min(idx, CORPUS[word.lower()])
     CORPUS.pop('')
 
 
@@ -36,7 +39,7 @@ def compute_deletions(word: str) -> list:
 #   made by inserting 1 character
 def compute_insertions(word: str) -> list:
     edits = []
-    for i in range(len(word)):
+    for i in range(len(word) + 1):
         for letter in ALPHA:
             edits.append(word[:i] + letter + word[i:])
     return edits
