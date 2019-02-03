@@ -39,7 +39,7 @@ def compute_deletions(word: str) -> list:
 #   made by inserting 1 character
 def compute_insertions(word: str) -> list:
     edits = []
-    for i in range(len(word) + 1):
+    for i in range(len(word)):
         for letter in ALPHA:
             edits.append(word[:i] + letter + word[i:])
     return edits
@@ -91,11 +91,13 @@ def suggest_list(word: str, limit=10) -> list:
         if len(sugg) > 2:
             suggestions[sugg] = (1, CORPUS[sugg])
 
-    # Next best is edit distance two from original word
-    twos = clean_with_corpus(compute_twos(word))
-    for sugg in twos:
-        if not suggestions.get(sugg, False) and len(sugg) > 2:
-            suggestions[sugg] = (2, CORPUS[sugg])
+    # don't waste time computing twos if we are going to throw them away
+    if len(suggestions.keys()) < limit:
+        # Next best is edit distance two from original word
+        twos = clean_with_corpus(compute_twos(word))
+        for sugg in twos:
+            if not suggestions.get(sugg, False) and len(sugg) > 2:
+                suggestions[sugg] = (2, CORPUS[sugg])
 
     return sorted(suggestions, key=suggestions.get)[:limit]
 
