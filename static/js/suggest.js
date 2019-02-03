@@ -16,7 +16,7 @@ const writeSuggestion = function(suggestionRes) {
 
   // avoid overwriting if response is stale relative to text entered
   console.log(inputWord);
-  condole.log(inputBox.value);
+  console.log(inputBox.value);
   if (inputWord !== inputBox.value) {
     console.log('Skipping dropdown overwrite as response is stale');
     return;
