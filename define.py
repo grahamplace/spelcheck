@@ -47,7 +47,7 @@ def clean_matches(matches):
         defn['definition_str'] = def_str
 
         # add part of speech
-        defn['part_of_speech'] = m['fl']
+        defn['part_of_speech'] = m.get('fl', '')
 
         defs.append(defn)
 
